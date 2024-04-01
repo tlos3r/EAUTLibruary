@@ -1,0 +1,60 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model users {
+  id          Int       @id @default(autoincrement())
+  email       String
+  name        String
+  password    String
+  role        Role      @default(USER)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  borrowCount Int       @default(0)
+  borrow      borrows[]
+}
+
+model category {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  books      book[]
+}
+
+model book {
+  id          Int       @id @default(autoincrement())
+  name        String
+  author      String
+  quantity    Int?
+  image       String
+  borrowCount Int       @default(0)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  Category    category? @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId  Int?
+  Borrows     borrows[]
+}
+
+model borrows {
+  id         Int       @id @default(autoincrement())
+  books      book?     @relation(fields: [bookId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  users      users?    @relation(fields: [usersId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  usersId    Int?
+  bookId     Int?
+  borrowDate DateTime
+  dueDate    DateTime
+  returnDate DateTime?
+}
+
+enum Role {
+  ADMIN
+  USER
+}
