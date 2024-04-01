@@ -32,10 +32,10 @@ const onSubmit = handleSubmit(async (values) => {
             email: values.email,
             password: values.password,
         },
-        onResponse({ response }) {
+        async onResponse({ response }) {
             if (response._data.status === "success") {
                 userCookie.value = response._data.response;
-                navigateTo("/dashboard");
+                await navigateTo("/dashboard/book");
             } else {
                 toast({
                     title: "Error",
@@ -49,7 +49,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 watchEffect(() => {
     if (userCookie.value) {
-        return navigateTo("/dashboard");
+        return navigateTo("/dashboard/book");
     }
 });
 </script>
