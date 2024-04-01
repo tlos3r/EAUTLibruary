@@ -22,6 +22,7 @@
         "clsx": "^2.1.0",
         "lucide-vue-next": "^0.344.0",
         "nuxt": "^3.10.3",
+        "nuxt-app": "file:",
         "prisma": "^5.10.2",
         "radix-vue": "^1.4.9",
         "swiper": "^11.0.7",
