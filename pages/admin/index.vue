@@ -36,7 +36,7 @@ const onSubmit = handleSubmit(async (values) => {
             if (response._data.status === "success") {
                 if (response._data.response.role === "ADMIN") {
                     userCookie.value = response._data.response;
-                    navigateTo("/admin/dashboard");
+                    navigateTo("/admin/dashboard/borrow");
                 } else {
                     toast({
                         title: "Error",

@@ -46,6 +46,9 @@ const registerUser = handleSubmit(async (value) => {
     }
     await $fetch("/api/auth/register", {
         method: "POST",
+        headers: {
+            "Content-type": "application/json",
+        },
         body: {
             email: value.email,
             name: value.name,

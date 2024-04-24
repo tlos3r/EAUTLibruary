@@ -2,15 +2,18 @@ import { Prisma, PrismaClient } from "@prisma/client/edge";
 export default defineEventHandler(async (event) => {
     let filter = {};
     const query = getQuery(event);
+    if (query.id) {
+        Object.assign(filter, {
+            id: parseInt(query.id as string),
+        });
+    }
     try {
         const allBorrow = await new PrismaClient().borrows.findMany({
             include: {
                 books: true,
                 users: true,
             },
-            where: {
-                usersId: parseInt(query.id as string),
-            },
+            where: filter,
         });
 
         return {
