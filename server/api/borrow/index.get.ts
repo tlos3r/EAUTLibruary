@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     if (query.id) {
         Object.assign(filter, {
-            id: parseInt(query.id as string),
+            usersId: parseInt(query.id as string),
         });
     }
     try {
